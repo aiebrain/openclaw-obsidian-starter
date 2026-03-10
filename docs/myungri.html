@@ -69,6 +69,15 @@
     .checklist li::before { content:'☐'; font-size:16px; color:var(--accent); flex-shrink:0; }
 
     /* 화면 박스 */
+
+    .output-preview { background:var(--code-bg); border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:14px; }
+    .output-section {}
+    .output-label { font-size:12px; font-weight:700; color:var(--gold); letter-spacing:1px; margin-bottom:10px; }
+    .output-content { font-size:14px; line-height:1.8; color:var(--text); }
+    .hashtag-line { display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+    .ht { background:var(--surface2); border:1px solid var(--border); border-radius:20px; padding:4px 12px; font-size:12px; color:var(--muted); }
+    .ht.must { background:rgba(192,132,252,0.15); border-color:var(--accent); color:var(--accent2); font-weight:700; }
+
     .screen-box { background:var(--code-bg); border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:14px; text-align:center; }
     .screen-label { font-size:12px; color:var(--muted); margin-bottom:14px; }
     .screen-content { display:flex; gap:12px; justify-content:center; margin-bottom:12px; }
@@ -480,24 +489,100 @@
   <!-- STEP 3 -->
   <section>
     <div class="sec-title">▶️ STEP 3 — YouTube Shorts 업로드</div>
-    <table>
-      <tr><th>항목</th><th>작성 요령</th></tr>
-      <tr><td><strong>제목</strong></td><td>Gemini에서 만든 제목 그대로 사용</td></tr>
-      <tr><td><strong>해시태그</strong></td><td>#사주 #명리 #운세 #숏츠 #명리공방</td></tr>
-      <tr><td><strong>공개 설정</strong></td><td>즉시 공개 (업로드 직후 30분 내 공유)</td></tr>
-    </table>
-    <div style="margin-top:20px;">
-      <p style="font-size:14px;color:var(--muted);margin-bottom:10px;">📋 설명란 템플릿 (복붙 후 첫 줄만 수정)</p>
-      <div class="code-block" id="desc-block"><button class="copy-btn" onclick="copyText('desc-block')">복사</button>[영상 핵심 내용 1줄]
-예) 사주에서 타고난 재물운을 가진 대박띠 탑3를 알려드립니다.
 
-📌 구독 + 좋아요 + 알림 설정 해주시면
-더 좋은 콘텐츠로 보답하겠습니다 🙏
+    <div class="steps">
 
-#사주 #명리 #운세 #사주팔자 #재물운
-#숏츠 #명리공방 #말년운 #띠별운세</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body" style="width:100%">
+          <h3>Gemini로 유튜브 설명 + 해시태그 자동 생성</h3>
+          <p>스크립트를 완성한 뒤, 아래 프롬프트로 유튜브 설명란과 해시태그를 한 번에 뽑아보세요.<br/>
+          <strong>[제목]</strong>과 <strong>[스크립트]</strong> 부분만 바꾸면 됩니다.</p>
+          <div class="code-block" id="yt-prompt"><button class="copy-btn" onclick="copyText('yt-prompt')">복사</button>너는 유튜브 숏츠 SEO 전문가야.
+아래 제목과 스크립트를 보고 유튜브 업로드용
+설명란과 해시태그를 작성해줘.
+
+[제목]
+(여기에 영상 제목 입력)
+
+[스크립트]
+(여기에 완성된 스크립트 입력)
+
+[출력 규칙]
+1. 설명란 (100자 이내):
+   - 첫 줄: 영상 핵심 내용 1문장 (검색 키워드 포함)
+   - 두 번째 줄: 구독 유도 문구
+   - 세 번째 줄: 채널 소개 1줄
+
+2. 해시태그 (15~20개):
+   - 반드시 #Shorts 포함 (유튜브 숏츠 필수)
+   - 반드시 #명리공방 포함
+   - 주제 관련 태그 + 인기 태그 조합
+   - 형식: 한 줄에 태그 전부 나열
+
+3. 출력 형식:
+   === 설명란 ===
+   (내용)
+
+   === 해시태그 ===
+   (내용)</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body" style="width:100%">
+          <h3>Gemini 출력 예시 확인</h3>
+          <p>아래처럼 완성된 결과가 나옵니다. 그대로 복사해서 유튜브에 붙여넣으면 됩니다.</p>
+          <div class="output-preview">
+            <div class="output-section">
+              <div class="output-label">=== 설명란 ===</div>
+              <div class="output-content">사주에서 타고난 재물운을 가진 대박띠 탑3를 알려드립니다.<br/>
+              구독 + 좋아요 + 알림 설정으로 매일 사주 정보 받아보세요 🔔<br/>
+              명리공방 | 사주·명리·운세 전문 채널</div>
+            </div>
+            <div class="output-section" style="margin-top:14px;">
+              <div class="output-label">=== 해시태그 ===</div>
+              <div class="output-content hashtag-line">
+                <span class="ht must">#Shorts</span>
+                <span class="ht must">#명리공방</span>
+                <span class="ht">#사주</span>
+                <span class="ht">#명리</span>
+                <span class="ht">#운세</span>
+                <span class="ht">#사주팔자</span>
+                <span class="ht">#재물운</span>
+                <span class="ht">#띠별운세</span>
+                <span class="ht">#말년운</span>
+                <span class="ht">#대박띠</span>
+                <span class="ht">#2026운세</span>
+                <span class="ht">#숏츠</span>
+                <span class="ht">#유튜브쇼츠</span>
+                <span class="ht">#사주상담</span>
+                <span class="ht">#오늘운세</span>
+              </div>
+            </div>
+          </div>
+          <div class="warn" style="margin-top:14px;">⚠️ <strong>#Shorts</strong> 태그가 없으면 유튜브가 숏츠로 인식하지 않을 수 있습니다. 반드시 포함!</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body" style="width:100%">
+          <h3>유튜브 업로드 설정</h3>
+          <table>
+            <tr><th>항목</th><th>작성 요령</th></tr>
+            <tr><td><strong>제목</strong></td><td>Gemini에서 만든 제목 그대로 사용</td></tr>
+            <tr><td><strong>설명란</strong></td><td>Gemini 출력 결과 복붙</td></tr>
+            <tr><td><strong>해시태그</strong></td><td>Gemini 출력 결과 복붙 (<strong style="color:var(--gold);">#Shorts 필수!</strong>)</td></tr>
+            <tr><td><strong>공개 설정</strong></td><td>즉시 공개</td></tr>
+            <tr><td><strong>카테고리</strong></td><td>사람과 블로그 또는 교육</td></tr>
+          </table>
+          <div class="warn" style="margin-top:14px;">🔔 업로드 직후 <strong>30분 내</strong> 카카오 채널 + 오픈채팅방 공유 필수!<br/>초기 30분의 조회수가 알고리즘 노출을 결정합니다.</div>
+        </div>
+      </div>
+
     </div>
-    <div class="warn" style="margin-top:16px;">🔔 업로드 직후 30분 내 카카오 채널 + 오픈채팅방 공유 필수! 초기 조회수가 전체 성과를 결정합니다.</div>
   </section>
 
   <!-- FAQ -->
