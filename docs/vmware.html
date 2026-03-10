@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VMware + Windows 11 설치 완전 가이드</title>
+  <meta name="description" content="VMware Workstation Pro 무료 설치 + Windows 11 ISO 다운로드부터 가상머신 셋업까지 단계별 완전 가이드" />
+  <style>
+    :root {
+      --bg: #0a0f1e; --surface: #0f1a2e; --surface2: #162035;
+      --accent: #60a5fa; --accent2: #93c5fd; --green: #34d399;
+      --text: #e8f0ff; --muted: #7a91b8; --border: #1e3050;
+      --code-bg: #070d1a; --step-bg: #0f1e35;
+      --warn: #fbbf24; --danger: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', 'Segoe UI', sans-serif; line-height: 1.75; overflow-x: hidden; }
+    body::before { content:''; position:fixed; inset:0; background-image: radial-gradient(600px 400px at 20% 20%, rgba(96,165,250,0.06) 0%, transparent 100%), radial-gradient(400px 300px at 80% 70%, rgba(52,211,153,0.05) 0%, transparent 100%); pointer-events:none; z-index:0; }
+
+    header { text-align:center; padding:70px 24px 56px; position:relative; z-index:1; }
+    header::after { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:700px; height:340px; background:radial-gradient(ellipse, rgba(96,165,250,0.12) 0%, transparent 70%); pointer-events:none; }
+    .badge { display:inline-block; background:rgba(96,165,250,0.12); border:1px solid rgba(96,165,250,0.35); color:var(--accent2); padding:5px 16px; border-radius:20px; font-size:13px; margin-bottom:20px; letter-spacing:1px; }
+    h1 { font-size:clamp(26px,5vw,48px); font-weight:900; line-height:1.25; margin-bottom:18px; background:linear-gradient(135deg,#fff 0%,#60a5fa 60%,#34d399 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .subtitle { font-size:clamp(14px,2vw,18px); color:var(--muted); max-width:560px; margin:0 auto 36px; }
+    .free-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(52,211,153,0.12); border:1px solid rgba(52,211,153,0.35); color:var(--green); padding:8px 18px; border-radius:30px; font-size:14px; font-weight:600; }
+
+    main { max-width: 860px; margin: 0 auto; padding: 0 24px 80px; position: relative; z-index: 1; }
+
+    /* 링크 박스 */
+    .link-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:48px; }
+    @media(max-width:580px){ .link-grid { grid-template-columns:1fr; } }
+    .link-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:24px; text-decoration:none; color:var(--text); display:block; transition:border-color .2s, transform .2s; }
+    .link-card:hover { border-color:var(--accent); transform:translateY(-2px); }
+    .link-card .lc-icon { font-size:32px; margin-bottom:10px; }
+    .link-card .lc-title { font-size:16px; font-weight:700; margin-bottom:6px; color:var(--accent2); }
+    .link-card .lc-desc { font-size:13px; color:var(--muted); margin-bottom:12px; }
+    .link-card .lc-url { font-size:12px; background:var(--code-bg); border:1px solid var(--border); border-radius:8px; padding:6px 10px; word-break:break-all; color:var(--green); font-family:monospace; }
+    .link-card .lc-free { display:inline-block; background:rgba(52,211,153,0.12); border:1px solid rgba(52,211,153,0.3); color:var(--green); font-size:11px; padding:2px 8px; border-radius:10px; margin-bottom:8px; }
+
+    /* 흐름 */
+    .flow-section { margin-bottom:48px; }
+    .flow-section h2 { font-size:18px; color:var(--muted); text-align:center; margin-bottom:24px; }
+    .flow { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:6px; }
+    .flow-item { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 18px; text-align:center; min-width:100px; }
+    .flow-item .fi-num { font-size:11px; color:var(--accent); font-weight:700; margin-bottom:4px; }
+    .flow-item .fi-label { font-size:13px; font-weight:600; }
+    .flow-arrow { color:var(--accent); font-size:18px; }
+
+    /* 스텝 */
+    .step { background:var(--step-bg); border:1px solid var(--border); border-radius:20px; padding:32px; margin-bottom:24px; }
+    .step-header { display:flex; align-items:center; gap:16px; margin-bottom:24px; }
+    .step-num { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--green)); display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:900; color:#000; flex-shrink:0; }
+    .step h2 { font-size:clamp(17px,3vw,22px); font-weight:800; }
+    .step h3 { font-size:15px; font-weight:700; color:var(--accent2); margin:20px 0 10px; }
+    .step p { color:var(--muted); font-size:15px; margin-bottom:14px; }
+    .step ol, .step ul { padding-left:24px; color:var(--muted); font-size:15px; }
+    .step li { margin-bottom:8px; }
+    .step li strong { color:var(--text); }
+
+    /* 코드블록 */
+    .code-block { background:var(--code-bg); border:1px solid var(--border); border-radius:12px; padding:16px 18px; font-family:'Consolas','Courier New',monospace; font-size:13px; color:#7dd3fc; overflow-x:auto; margin:12px 0; white-space:pre; }
+
+    /* 테이블 */
+    table { width:100%; border-collapse:collapse; margin:16px 0; font-size:14px; }
+    th { background:var(--surface2); color:var(--accent2); padding:10px 14px; text-align:left; border-bottom:1px solid var(--border); }
+    td { padding:10px 14px; border-bottom:1px solid var(--border); color:var(--muted); }
+    td strong { color:var(--text); }
+    tr:last-child td { border-bottom:none; }
+
+    /* 경고/팁 */
+    .tip { background:rgba(52,211,153,0.08); border:1px solid rgba(52,211,153,0.25); border-radius:12px; padding:14px 18px; font-size:14px; color:#86efac; margin:14px 0; }
+    .warn { background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.25); border-radius:12px; padding:14px 18px; font-size:14px; color:#fde68a; margin:14px 0; }
+    .danger { background:rgba(248,113,113,0.08); border:1px solid rgba(248,113,113,0.25); border-radius:12px; padding:14px 18px; font-size:14px; color:#fca5a5; margin:14px 0; }
+
+    /* 체크리스트 */
+    .checklist { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px; margin-bottom:48px; }
+    .checklist h2 { font-size:18px; font-weight:800; margin-bottom:20px; }
+    .check-item { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid var(--border); font-size:15px; color:var(--muted); }
+    .check-item:last-child { border-bottom:none; }
+    .check-item .chk { width:22px; height:22px; border:2px solid var(--accent); border-radius:6px; flex-shrink:0; margin-top:1px; cursor:pointer; transition:background .15s; }
+    .check-item .chk.done { background:var(--accent); }
+
+    /* FAQ */
+    .faq { margin-bottom:48px; }
+    .faq h2 { font-size:20px; font-weight:800; margin-bottom:20px; }
+    .faq-item { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px 24px; margin-bottom:12px; }
+    .faq-q { font-weight:700; color:var(--accent2); margin-bottom:8px; font-size:15px; }
+    .faq-a { color:var(--muted); font-size:14px; }
+
+    footer { text-align:center; padding:40px 24px; color:var(--muted); font-size:13px; border-top:1px solid var(--border); position:relative; z-index:1; }
+    footer a { color:var(--accent2); text-decoration:none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="badge">💻 가상머신 설치 가이드</div>
+  <h1>VMware + Windows 11<br>완전 설치 가이드</h1>
+  <p class="subtitle">VMware Workstation Pro 무료 다운로드부터<br>Windows 11 가상머신 완성까지 단계별 안내</p>
+  <div class="free-badge">✅ VMware 개인용 완전 무료 (2024~)</div>
+</header>
+
+<main>
+
+  <!-- 다운로드 링크 -->
+  <section style="margin-bottom:48px;">
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:20px;">🔗 다운로드 링크</h2>
+    <div class="link-grid">
+      <a class="link-card" href="https://support.broadcom.com/group/ecx/downloads" target="_blank">
+        <div class="lc-icon">🔵</div>
+        <div class="lc-free">무료 (개인용)</div>
+        <div class="lc-title">VMware Workstation Pro</div>
+        <div class="lc-desc">Broadcom 로그인 후 다운로드 (무료 계정)</div>
+        <div class="lc-url">support.broadcom.com/group/ecx/downloads</div>
+      </a>
+      <a class="link-card" href="https://www.microsoft.com/ko-kr/software-download/windows11" target="_blank">
+        <div class="lc-icon">🪟</div>
+        <div class="lc-free">무료 ISO</div>
+        <div class="lc-title">Windows 11 ISO</div>
+        <div class="lc-desc">Microsoft 공식 ISO 다운로드 (약 5~6GB)</div>
+        <div class="lc-url">microsoft.com/ko-kr/software-download/windows11</div>
+      </a>
+    </div>
+    <div class="tip">💡 <strong>2024년부터 VMware는 Broadcom에 인수되어 개인 사용 완전 무료!</strong> Broadcom 무료 계정만 만들면 됩니다.</div>
+  </section>
+
+  <!-- 전체 흐름 -->
+  <section class="flow-section">
+    <h2>전체 설치 흐름</h2>
+    <div class="flow">
+      <div class="flow-item"><div class="fi-num">STEP 1</div><div class="fi-label">Broadcom<br>계정 생성</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item"><div class="fi-num">STEP 2</div><div class="fi-label">VMware<br>다운로드</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item"><div class="fi-num">STEP 3</div><div class="fi-label">VMware<br>설치</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item"><div class="fi-num">STEP 4</div><div class="fi-label">Win11 ISO<br>다운로드</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item"><div class="fi-num">STEP 5</div><div class="fi-label">가상머신<br>생성</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item"><div class="fi-num">STEP 6</div><div class="fi-label">Windows<br>설치</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item"><div class="fi-num">STEP 7</div><div class="fi-label">VMware<br>Tools 설치</div></div>
+    </div>
+  </section>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <h2>Broadcom 계정 생성 (무료)</h2>
+    </div>
+    <p>VMware는 Broadcom이 인수한 후 무료로 전환됐습니다. 다운로드에는 무료 계정이 필요합니다.</p>
+    <ol>
+      <li><strong>https://support.broadcom.com</strong> 접속</li>
+      <li>우측 상단 <strong>[Register]</strong> 클릭</li>
+      <li>이메일 입력 후 계정 생성</li>
+      <li>이메일 인증 완료</li>
+    </ol>
+    <div class="tip">✅ 계정 생성 완전 무료 — 카드 정보 불필요</div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <h2>VMware Workstation Pro 다운로드</h2>
+    </div>
+    <ol>
+      <li><strong>https://support.broadcom.com/group/ecx/downloads</strong> 접속 후 로그인</li>
+      <li>검색창에 <strong>VMware Workstation Pro</strong> 입력</li>
+      <li>최신 버전 클릭 → <strong>Windows 용</strong> 선택</li>
+      <li><strong>[Download]</strong> 클릭 → <code>.exe</code> 파일 저장</li>
+    </ol>
+    <div class="warn">⚠️ 경로 못 찾겠으면: My Downloads → VMware Workstation Pro → 최신 버전</div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <h2>VMware Workstation Pro 설치</h2>
+    </div>
+    <h3>① 설치 파일 실행</h3>
+    <ol>
+      <li>다운로드한 <code>.exe</code> 파일 <strong>우클릭 → 관리자 권한으로 실행</strong></li>
+      <li>[Next] 클릭하여 진행</li>
+    </ol>
+
+    <h3>② 설치 옵션</h3>
+    <table>
+      <tr><th>항목</th><th>권장 설정</th></tr>
+      <tr><td>설치 경로</td><td><strong>기본값 유지</strong> (C:\Program Files\VMware\)</td></tr>
+      <tr><td>Enhanced Keyboard Driver</td><td>✅ <strong>체크 권장</strong></td></tr>
+      <tr><td>VMware Automatic Software Updates</td><td>취향껏</td></tr>
+      <tr><td>Join the VMware CEIP</td><td>체크 해제 가능</td></tr>
+    </table>
+
+    <h3>③ 설치 완료 후 첫 실행</h3>
+    <ol>
+      <li>[Install] → 설치 진행 (약 3~5분)</li>
+      <li>[Finish] → PC 재시작 권장</li>
+      <li>VMware 실행 후 <strong>"Use VMware Workstation for Personal Use"</strong> 선택</li>
+      <li>라이선스 키 없이 <strong>무료 사용 가능</strong> ✅</li>
+    </ol>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <h2>Windows 11 ISO 다운로드</h2>
+    </div>
+    <ol>
+      <li><strong>https://www.microsoft.com/ko-kr/software-download/windows11</strong> 접속</li>
+      <li>페이지 중간 <strong>"Windows 11 디스크 이미지(ISO) 다운로드"</strong> 섹션으로 스크롤</li>
+      <li>드롭다운에서 <strong>Windows 11 (multi-edition ISO)</strong> 선택 → [다운로드]</li>
+      <li>언어: <strong>한국어</strong> → [확인]</li>
+      <li><strong>[64비트 다운로드]</strong> 클릭 → ISO 파일 저장</li>
+    </ol>
+    <div class="tip">💡 ISO 파일 크기 약 5~6GB, 다운로드 10~30분 소요. 저장 위치 기억해두세요!</div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <h2>가상머신 생성</h2>
+    </div>
+    <h3>① 새 가상머신 만들기</h3>
+    <ol>
+      <li>VMware 실행 → <strong>[Create a New Virtual Machine]</strong> 클릭</li>
+      <li><strong>"Typical (recommended)"</strong> 선택 → [Next]</li>
+      <li><strong>"Installer disc image file (iso)"</strong> 선택 → [Browse] → ISO 파일 선택</li>
+    </ol>
+
+    <h3>② 저장 위치 설정</h3>
+    <div class="code-block">이름: Windows 11
+위치: D:\VMs\Windows11  (용량 큰 드라이브 권장)</div>
+
+    <h3>③ 하드웨어 설정 (중요!)</h3>
+    <p>[Customize Hardware] 클릭 후 설정:</p>
+    <table>
+      <tr><th>항목</th><th>권장값</th><th>최소값</th></tr>
+      <tr><td><strong>디스크 크기</strong></td><td>80GB 이상</td><td>64GB</td></tr>
+      <tr><td><strong>Memory (RAM)</strong></td><td>8GB</td><td>4GB</td></tr>
+      <tr><td><strong>Processors</strong></td><td>CPU 코어의 절반</td><td>2코어</td></tr>
+      <tr><td>Network Adapter</td><td>NAT (기본값)</td><td>-</td></tr>
+    </table>
+    <div class="warn">⚠️ RAM 4GB 미만이면 Windows 11이 매우 느립니다. 최소 4GB, 권장 8GB!</div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">6</div>
+      <h2>Windows 11 설치</h2>
+    </div>
+    <h3>① 가상머신 시작</h3>
+    <ol>
+      <li>생성된 가상머신 선택 → <strong>[Play virtual machine]</strong></li>
+      <li>"Press any key to boot from CD..." 메시지 뜨면 <strong>즉시 아무 키 입력!</strong></li>
+    </ol>
+    <div class="danger">⚠️ 키 입력 타이밍을 놓치면 다시 재시작해야 합니다. 부팅 화면 뜨자마자 클릭!</div>
+
+    <h3>② 설치 단계</h3>
+    <ol>
+      <li>언어: <strong>한국어</strong> → [다음] → [지금 설치]</li>
+      <li>제품 키: <strong>"제품 키가 없음"</strong> 클릭 (나중에 정품 인증 가능)</li>
+      <li>버전: <strong>Windows 11 Pro</strong> 권장 → [다음]</li>
+      <li>사용 조건 동의 → [다음]</li>
+      <li>설치 유형: <strong>"사용자 지정: Windows만 설치"</strong></li>
+      <li>파티션 선택 → [다음]</li>
+    </ol>
+    <div class="tip">✅ 설치 시간 약 15~30분. 재시작 여러 번 반복되는 것은 정상입니다!</div>
+  </div>
+
+  <!-- STEP 7 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">7</div>
+      <h2>VMware Tools 설치 (필수!)</h2>
+    </div>
+    <p>설치 완료 후 VMware Tools를 반드시 설치해야 화면 해상도·복사/붙여넣기·파일 공유가 정상 작동합니다.</p>
+    <ol>
+      <li>VMware 상단 메뉴 → <strong>[VM] → [Install VMware Tools]</strong></li>
+      <li>가상머신 탐색기에서 DVD 드라이브 열기</li>
+      <li><strong>setup64.exe</strong> 실행 → [Next] → [Install] → [Finish]</li>
+      <li>재시작</li>
+    </ol>
+    <div class="danger">⚠️ VMware Tools 없으면: 화면 작음, 복붙 안됨, 파일 공유 불가 → 반드시 설치!</div>
+  </div>
+
+  <!-- 체크리스트 -->
+  <div class="checklist">
+    <h2>✅ 설치 체크리스트</h2>
+    <div class="check-item"><div class="chk" onclick="this.classList.toggle('done')"></div><span>Broadcom 계정 생성 완료</span></div>
+    <div class="check-item"><div class="chk" onclick="this.classList.toggle('done')"></div><span>VMware Workstation Pro 다운로드</span></div>
+    <div class="check-item"><div class="chk" onclick="this.classList.toggle('done')"></div><span>VMware 설치 완료 (개인용 무료 선택)</span></div>
+    <div class="check-item"><div class="chk" onclick="this.classList.toggle('done')"></div><span>Windows 11 ISO 다운로드 완료</span></div>
+    <div class="check-item"><div class="chk" onclick="this.classList.toggle('done')"></div><span>가상머신 생성 (RAM 8GB, 디스크 80GB)</span></div>
+    <div class="check-item"><div class="chk" onclick="this.classList.toggle('done')"></div><span>Windows 11 설치 완료</span></div>
+    <div class="check-item"><div class="chk" onclick="this.classList.toggle('done')"></div><span>VMware Tools 설치 완료</span></div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq">
+    <h2>❓ 자주 묻는 질문</h2>
+    <div class="faq-item">
+      <div class="faq-q">Q. Broadcom 계정 없이 다운로드 가능한가요?</div>
+      <div class="faq-a">아니요. 2024년부터 Broadcom 무료 계정 로그인이 필수입니다. 가입은 완전 무료이며 카드 정보도 필요 없습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q. Windows 11이 TPM 오류로 설치 안 돼요</div>
+      <div class="faq-a">가상머신 설정 → [VM] → [Settings] → [Options] → [Advanced] → UEFI 선택 + Secure Boot 체크하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q. 가상머신이 너무 느려요</div>
+      <div class="faq-a">RAM을 8GB 이상으로 늘리고, VMware Tools가 설치됐는지 확인하세요. Tools 없으면 무조건 느립니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q. 호스트 PC와 파일 공유하고 싶어요</div>
+      <div class="faq-a">VMware Tools 설치 후 → [VM] → [Settings] → [Shared Folders] → 공유할 폴더 추가하면 됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q. 복사/붙여넣기가 안 돼요</div>
+      <div class="faq-a">VMware Tools가 설치되어 있어야 합니다. 설치 후 재시작하면 바로 됩니다.</div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Made by <a href="https://youtube.com/@aiebrain" target="_blank">AI 커머스 브레인</a> &nbsp;|&nbsp; <a href="https://open.kakao.com/o/gfNHYBwh" target="_blank">오픈채팅방</a></p>
+</footer>
+
+</body>
+</html>
