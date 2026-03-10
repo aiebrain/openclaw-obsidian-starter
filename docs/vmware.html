@@ -106,12 +106,12 @@
   <section style="margin-bottom:48px;">
     <h2 style="font-size:20px;font-weight:800;margin-bottom:20px;">🔗 다운로드 링크</h2>
     <div class="link-grid">
-      <a class="link-card" href="https://support.broadcom.com/group/ecx/downloads" target="_blank">
+      <a class="link-card" href="https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Workstation+Pro" target="_blank">
         <div class="lc-icon">🔵</div>
         <div class="lc-free">무료 (개인용)</div>
         <div class="lc-title">VMware Workstation Pro</div>
-        <div class="lc-desc">Broadcom 로그인 후 다운로드 (무료 계정)</div>
-        <div class="lc-url">support.broadcom.com/group/ecx/downloads</div>
+        <div class="lc-desc">Broadcom 계정 로그인 후 다운로드 (계정 생성 필수)</div>
+        <div class="lc-url">support.broadcom.com → 직접 다운로드 링크</div>
       </a>
       <a class="link-card" href="https://www.microsoft.com/ko-kr/software-download/windows11" target="_blank">
         <div class="lc-icon">🪟</div>
@@ -148,15 +148,35 @@
   <div class="step">
     <div class="step-header">
       <div class="step-num">1</div>
-      <h2>Broadcom 계정 생성 (무료)</h2>
+      <h2>Broadcom 계정 생성 (필수, 무료)</h2>
     </div>
-    <p>VMware는 Broadcom이 인수한 후 무료로 전환됐습니다. 다운로드에는 무료 계정이 필요합니다.</p>
+    <p>VMware는 Broadcom이 인수한 후 개인용 무료로 전환됐습니다. 다운로드 전 Broadcom 계정이 반드시 필요합니다.</p>
+
+    <h3>① 회원가입</h3>
     <ol>
-      <li><strong>https://support.broadcom.com</strong> 접속</li>
+      <li><a href="https://support.broadcom.com/web/ecx/home" target="_blank" style="color:var(--accent2)">https://support.broadcom.com</a> 접속</li>
       <li>우측 상단 <strong>[Register]</strong> 클릭</li>
-      <li>이메일 입력 후 계정 생성</li>
-      <li>이메일 인증 완료</li>
+      <li>이메일 주소 입력 → <strong>[Next]</strong></li>
+      <li>이름, 비밀번호 입력 → 가입 완료</li>
+      <li>이메일 인증 링크 클릭 (메일함 확인)</li>
     </ol>
+
+    <h3>② 프로필 완성 (중요!)</h3>
+    <p>가입 후 프로필이 불완전하면 다운로드가 차단됩니다. 반드시 완성하세요.</p>
+    <ol>
+      <li>로그인 후 우측 상단 프로필 아이콘 클릭</li>
+      <li><strong>[My Profile]</strong> → 프로필 편집 클릭</li>
+      <li>아래 항목 모두 입력:
+        <ul style="margin-top:8px;">
+          <li>First Name / Last Name</li>
+          <li>Country: <strong>South Korea</strong></li>
+          <li>Address (대략적으로 입력해도 됨)</li>
+          <li>Phone Number</li>
+        </ul>
+      </li>
+      <li>저장 후 다시 다운로드 시도</li>
+    </ol>
+    <div class="warn">⚠️ 프로필 미완성 시 다운로드 버튼이 비활성화되거나 오류 발생! 주소·전화번호까지 입력해야 합니다.</div>
     <div class="tip">✅ 계정 생성 완전 무료 — 카드 정보 불필요</div>
   </div>
 
@@ -166,13 +186,34 @@
       <div class="step-num">2</div>
       <h2>VMware Workstation Pro 다운로드</h2>
     </div>
+    <div class="danger">⚠️ Broadcom 포털은 복잡합니다. 아래 순서를 그대로 따라하세요!</div>
+
+    <h3>① 정확한 다운로드 경로</h3>
     <ol>
-      <li><strong>https://support.broadcom.com/group/ecx/downloads</strong> 접속 후 로그인</li>
-      <li>검색창에 <strong>VMware Workstation Pro</strong> 입력</li>
-      <li>최신 버전 클릭 → <strong>Windows 용</strong> 선택</li>
-      <li><strong>[Download]</strong> 클릭 → <code>.exe</code> 파일 저장</li>
+      <li><a href="https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Workstation+Pro" target="_blank" style="color:var(--accent2)">아래 직접 링크 클릭 (로그인 후 이동됨)</a></li>
     </ol>
-    <div class="warn">⚠️ 경로 못 찾겠으면: My Downloads → VMware Workstation Pro → 최신 버전</div>
+    <div class="code-block">https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Workstation+Pro</div>
+    <p style="color:var(--muted);font-size:14px;">링크 클릭 시 로그인 페이지로 이동 → 로그인 → 자동으로 다운로드 페이지로 이동</p>
+
+    <h3>② 수동으로 찾아가는 경우</h3>
+    <ol>
+      <li>로그인 후 상단 메뉴 <strong>[My Downloads]</strong> 클릭</li>
+      <li>검색창에 <strong>VMware Workstation Pro</strong> 입력 후 검색</li>
+      <li>결과에서 <strong>VMware Workstation Pro</strong> 클릭</li>
+      <li>버전 목록에서 최신 버전 선택 (예: 17.x.x)</li>
+      <li><strong>[I agree to Terms and Conditions]</strong> 체크</li>
+      <li>파일 목록에서 <strong>VMware-workstation-full-XX.X.X-XXXXXXXX.exe</strong> 옆 ⬇️ 클릭</li>
+    </ol>
+
+    <h3>③ 다운로드 안 될 때 체크리스트</h3>
+    <table>
+      <tr><th>증상</th><th>해결법</th></tr>
+      <tr><td>다운로드 버튼 비활성화</td><td>프로필 완성 필요 (STEP 1 ② 참고)</td></tr>
+      <tr><td>로그인 후 다시 로그인 요구</td><td>브라우저 쿠키 허용, 시크릿 모드 해제</td></tr>
+      <tr><td>제품이 검색 안 됨</td><td>직접 링크로 접속 (위 URL 사용)</td></tr>
+      <tr><td>다운로드 속도 매우 느림</td><td>정상 (해외 서버). VPN 사용 금지</td></tr>
+    </table>
+    <div class="tip">💡 다운로드 파일 크기: 약 600~700MB</div>
   </div>
 
   <!-- STEP 3 -->
@@ -308,7 +349,15 @@
     <h2>❓ 자주 묻는 질문</h2>
     <div class="faq-item">
       <div class="faq-q">Q. Broadcom 계정 없이 다운로드 가능한가요?</div>
-      <div class="faq-a">아니요. 2024년부터 Broadcom 무료 계정 로그인이 필수입니다. 가입은 완전 무료이며 카드 정보도 필요 없습니다.</div>
+      <div class="faq-a">아니요. 2024년부터 Broadcom 무료 계정 로그인이 필수입니다. 가입 완전 무료이며 카드 정보도 필요 없습니다. 단, 프로필(이름·주소·전화번호)을 완성해야 다운로드 버튼이 활성화됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q. 다운로드 버튼이 회색으로 비활성화돼요</div>
+      <div class="faq-a">Broadcom 프로필이 불완전할 때 발생합니다. 로그인 후 My Profile → 주소, 전화번호, 국가 정보를 모두 입력하고 저장 후 다시 시도하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q. 로그인했는데 계속 로그인 페이지로 돌아와요</div>
+      <div class="faq-a">브라우저 쿠키 문제입니다. ① 시크릿 모드 해제 ② 쿠키 허용 설정 확인 ③ Chrome 또는 Edge 사용을 권장합니다. Safari는 차단될 수 있습니다.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Q. Windows 11이 TPM 오류로 설치 안 돼요</div>
