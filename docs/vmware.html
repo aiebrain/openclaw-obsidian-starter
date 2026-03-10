@@ -153,30 +153,21 @@
     <p>VMware는 Broadcom이 인수한 후 개인용 무료로 전환됐습니다. 다운로드 전 Broadcom 계정이 반드시 필요합니다.</p>
 
     <h3>① 회원가입</h3>
+    <div class="danger">⚠️ <strong>네이버·다음·네이트 이메일(@naver.com, @daum.net, @nate.com)로는 가입 불가!</strong><br>반드시 <strong>Gmail(@gmail.com)</strong> 또는 회사 이메일 사용</div>
     <ol>
-      <li><a href="https://support.broadcom.com/web/ecx/home" target="_blank" style="color:var(--accent2)">https://support.broadcom.com</a> 접속</li>
-      <li>우측 상단 <strong>[Register]</strong> 클릭</li>
-      <li>이메일 주소 입력 → <strong>[Next]</strong></li>
-      <li>이름, 비밀번호 입력 → 가입 완료</li>
-      <li>이메일 인증 링크 클릭 (메일함 확인)</li>
+      <li><a href="https://www.broadcom.com" target="_blank" style="color:var(--accent2)">https://www.broadcom.com</a> 접속</li>
+      <li>우측 상단 <strong>[Support Portal]</strong> → <strong>[Register]</strong> 클릭</li>
+      <li>Gmail 주소 입력 후 진행</li>
+      <li>이메일로 <strong>제목: "Broadcom Registration Notice - Verification Code"</strong> 수신</li>
+      <li>본문의 <strong>6자리 숫자 인증 코드</strong> 입력</li>
+      <li>이름, 비밀번호 등 필수 정보 입력 → 이용약관 동의 → 가입 완료</li>
+      <li>"Successfully!" 메시지 확인</li>
     </ol>
 
-    <h3>② 프로필 완성 (중요!)</h3>
-    <p>가입 후 프로필이 불완전하면 다운로드가 차단됩니다. 반드시 완성하세요.</p>
-    <ol>
-      <li>로그인 후 우측 상단 프로필 아이콘 클릭</li>
-      <li><strong>[My Profile]</strong> → 프로필 편집 클릭</li>
-      <li>아래 항목 모두 입력:
-        <ul style="margin-top:8px;">
-          <li>First Name / Last Name</li>
-          <li>Country: <strong>South Korea</strong></li>
-          <li>Address (대략적으로 입력해도 됨)</li>
-          <li>Phone Number</li>
-        </ul>
-      </li>
-      <li>저장 후 다시 다운로드 시도</li>
-    </ol>
-    <div class="warn">⚠️ 프로필 미완성 시 다운로드 버튼이 비활성화되거나 오류 발생! 주소·전화번호까지 입력해야 합니다.</div>
+    <h3>② 프로필 설정</h3>
+    <p>가입 후 프로필 생성 화면이 나타납니다.</p>
+    <div class="tip">💡 개인 사용자는 <strong>"I'll do it later"</strong> 클릭해도 됩니다. 프로필 없이도 다운로드 가능!</div>
+    <p style="color:var(--muted);font-size:14px;">→ 이후 브로드컴 메인화면으로 자동 이동. 로그아웃됐다면 <strong>[Go To Portal]</strong> → 로그인</p>
     <div class="tip">✅ 계정 생성 완전 무료 — 카드 정보 불필요</div>
   </div>
 
@@ -195,23 +186,30 @@
     <div class="code-block">https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Workstation+Pro</div>
     <p style="color:var(--muted);font-size:14px;">링크 클릭 시 로그인 페이지로 이동 → 로그인 → 자동으로 다운로드 페이지로 이동</p>
 
-    <h3>② 수동으로 찾아가는 경우</h3>
+    <h3>② 정확한 메뉴 경로 (수동)</h3>
     <ol>
-      <li>로그인 후 상단 메뉴 <strong>[My Downloads]</strong> 클릭</li>
-      <li>검색창에 <strong>VMware Workstation Pro</strong> 입력 후 검색</li>
-      <li>결과에서 <strong>VMware Workstation Pro</strong> 클릭</li>
-      <li>버전 목록에서 최신 버전 선택 (예: 17.x.x)</li>
-      <li><strong>[I agree to Terms and Conditions]</strong> 체크</li>
-      <li>파일 목록에서 <strong>VMware-workstation-full-XX.X.X-XXXXXXXX.exe</strong> 옆 ⬇️ 클릭</li>
+      <li>로그인 후 메인화면에서 <strong>[Software]</strong> 클릭</li>
+      <li><strong>[VMware Cloud Foundation]</strong> 선택</li>
+      <li><strong>[My Downloads]</strong> 클릭</li>
+      <li>목록 하단에서 <strong>[VMware Workstation Pro]</strong> 클릭</li>
+      <li>최신 버전 선택 (예: 17.x.x)</li>
+      <li><strong>"다운로드하려면 추가 인증이 필요합니다"</strong> 메시지 → 주소 입력 화면으로 이동</li>
+      <li>주소 입력 (형식상 대충 입력 가능, <strong>우편번호만 정확히 입력</strong>)</li>
+      <li><strong>[I Agree]</strong> 동의 → 다시 다운로드 버튼 클릭</li>
+      <li><code>VMware-workstation-full-XX.X.X-XXXXXXXX.exe</code> ⬇️ 클릭</li>
     </ol>
+
+    <div class="warn">⚠️ 주소 입력 단계가 나타나는 건 정상! 귀찮아도 입력해야 무료 다운로드 가능합니다.</div>
 
     <h3>③ 다운로드 안 될 때 체크리스트</h3>
     <table>
       <tr><th>증상</th><th>해결법</th></tr>
-      <tr><td>다운로드 버튼 비활성화</td><td>프로필 완성 필요 (STEP 1 ② 참고)</td></tr>
-      <tr><td>로그인 후 다시 로그인 요구</td><td>브라우저 쿠키 허용, 시크릿 모드 해제</td></tr>
-      <tr><td>제품이 검색 안 됨</td><td>직접 링크로 접속 (위 URL 사용)</td></tr>
-      <tr><td>다운로드 속도 매우 느림</td><td>정상 (해외 서버). VPN 사용 금지</td></tr>
+      <tr><td>가입 자체가 안 됨</td><td><strong>Gmail 사용!</strong> 네이버·다음·네이트 이메일 불가</td></tr>
+      <tr><td>인증 코드 메일 안 옴</td><td>스팸 폴더 확인 / 제목: "Broadcom Registration Notice"</td></tr>
+      <tr><td>다운로드 버튼 비활성화</td><td>주소 추가 인증 단계 진행 (우편번호 입력)</td></tr>
+      <tr><td>메뉴에서 제품 못 찾음</td><td>직접 링크 사용 (위 URL)</td></tr>
+      <tr><td>로그인 후 다시 로그인 요구</td><td>Chrome/Edge 사용, 시크릿 모드 해제</td></tr>
+      <tr><td>다운로드 속도 느림</td><td>정상 (해외 서버). VPN 사용 금지</td></tr>
     </table>
     <div class="tip">💡 다운로드 파일 크기: 약 600~700MB</div>
   </div>
@@ -241,9 +239,17 @@
     <ol>
       <li>[Install] → 설치 진행 (약 3~5분)</li>
       <li>[Finish] → PC 재시작 권장</li>
-      <li>VMware 실행 후 <strong>"Use VMware Workstation for Personal Use"</strong> 선택</li>
-      <li>라이선스 키 없이 <strong>무료 사용 가능</strong> ✅</li>
+      <li>VMware 실행 → 라이선스 키 입력 화면이 나오면 <strong>그냥 건너뛰기</strong></li>
     </ol>
+
+    <h3>④ 정상 설치 확인</h3>
+    <p>VMware 실행 후 우측 상단 또는 About 화면에서 아래 상태 확인:</p>
+    <table>
+      <tr><th>항목</th><th>표시값</th><th>의미</th></tr>
+      <tr><td>Type</td><td><strong>Personal Use Only</strong></td><td>✅ 정상</td></tr>
+      <tr><td>Status</td><td><strong>Not Licensed</strong></td><td>✅ 정상 (무료 버전)</td></tr>
+    </table>
+    <div class="tip">💡 "Not Licensed"가 표시돼도 정상입니다! 2024년 11월부터 라이선스 없이 완전 무료 사용 가능.</div>
   </div>
 
   <!-- STEP 4 -->
@@ -348,16 +354,24 @@
   <div class="faq">
     <h2>❓ 자주 묻는 질문</h2>
     <div class="faq-item">
-      <div class="faq-q">Q. Broadcom 계정 없이 다운로드 가능한가요?</div>
-      <div class="faq-a">아니요. 2024년부터 Broadcom 무료 계정 로그인이 필수입니다. 가입 완전 무료이며 카드 정보도 필요 없습니다. 단, 프로필(이름·주소·전화번호)을 완성해야 다운로드 버튼이 활성화됩니다.</div>
+      <div class="faq-q">Q. 네이버 이메일로 가입이 안 돼요</div>
+      <div class="faq-a">@naver.com, @daum.net, @nate.com 등 국내 포털 이메일은 Broadcom에서 차단되어 있습니다. 반드시 <strong>Gmail(@gmail.com)</strong>이나 회사 이메일로 가입하세요.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">Q. 다운로드 버튼이 회색으로 비활성화돼요</div>
-      <div class="faq-a">Broadcom 프로필이 불완전할 때 발생합니다. 로그인 후 My Profile → 주소, 전화번호, 국가 정보를 모두 입력하고 저장 후 다시 시도하세요.</div>
+      <div class="faq-q">Q. 인증 코드 이메일이 안 와요</div>
+      <div class="faq-a">스팸 폴더를 확인하세요. 제목은 "Broadcom Registration Notice - Verification Code"입니다. 5~10분 기다려도 안 오면 가입을 다시 시도하세요.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q. "다운로드하려면 추가 인증이 필요합니다" 메시지가 나와요</div>
+      <div class="faq-a">정상입니다. 주소 입력 화면에서 대략적인 주소와 <strong>정확한 우편번호</strong>만 입력하면 됩니다. [I Agree] 동의 후 다시 다운로드 버튼 클릭하면 됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Q. 설치 후 "Not Licensed"라고 나와요. 오류인가요?</div>
+      <div class="faq-a">정상입니다! 2024년 11월부터 VMware는 라이선스 없이 완전 무료입니다. "Type: Personal Use Only", "Status: Not Licensed" 상태로 그냥 사용하시면 됩니다.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Q. 로그인했는데 계속 로그인 페이지로 돌아와요</div>
-      <div class="faq-a">브라우저 쿠키 문제입니다. ① 시크릿 모드 해제 ② 쿠키 허용 설정 확인 ③ Chrome 또는 Edge 사용을 권장합니다. Safari는 차단될 수 있습니다.</div>
+      <div class="faq-a">브라우저 쿠키 문제입니다. ① 시크릿 모드 해제 ② 쿠키 허용 확인 ③ Chrome 또는 Edge 사용 권장 (Safari 차단될 수 있음)</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Q. Windows 11이 TPM 오류로 설치 안 돼요</div>
