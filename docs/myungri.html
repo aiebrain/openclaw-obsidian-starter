@@ -70,6 +70,13 @@
 
     /* 화면 박스 */
 
+
+    .prompt-flow { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:14px 0; }
+    .pf-item { display:flex; align-items:center; gap:8px; background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:10px 16px; }
+    .pf-num { width:24px; height:24px; background:var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; color:#fff; flex-shrink:0; }
+    .pf-text { font-size:13px; }
+    .pf-arrow { color:var(--accent); font-size:18px; flex-shrink:0; }
+
     .output-preview { background:var(--code-bg); border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:14px; }
     .output-section {}
     .output-label { font-size:12px; font-weight:700; color:var(--gold); letter-spacing:1px; margin-bottom:10px; }
@@ -495,37 +502,60 @@
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-body" style="width:100%">
-          <h3>Gemini로 유튜브 설명 + 해시태그 자동 생성</h3>
-          <p>스크립트를 완성한 뒤, 아래 프롬프트로 유튜브 설명란과 해시태그를 한 번에 뽑아보세요.<br/>
-          <strong>[제목]</strong>과 <strong>[스크립트]</strong> 부분만 바꾸면 됩니다.</p>
-          <div class="code-block" id="yt-prompt"><button class="copy-btn" onclick="copyText('yt-prompt')">복사</button>너는 유튜브 숏츠 SEO 전문가야.
-아래 제목과 스크립트를 보고 유튜브 업로드용
-설명란과 해시태그를 작성해줘.
+          <h3>Gemini로 설명 + 해시태그 자동 생성</h3>
+          <p>아래 프롬프트를 복사해서 Gemini에 붙여넣고,<br/>
+          <strong style="color:var(--gold);">[제목]</strong>과 <strong style="color:var(--gold);">[스크립트]</strong> 부분만 바꾸세요.<br/>
+          나머지는 Gemini가 전부 써줍니다.</p>
+
+          <div class="prompt-flow">
+            <div class="pf-item">
+              <div class="pf-num">①</div>
+              <div class="pf-text">아래 프롬프트 <strong>복사</strong></div>
+            </div>
+            <div class="pf-arrow">→</div>
+            <div class="pf-item">
+              <div class="pf-num">②</div>
+              <div class="pf-text"><strong>[제목], [스크립트]</strong> 내용 교체</div>
+            </div>
+            <div class="pf-arrow">→</div>
+            <div class="pf-item">
+              <div class="pf-num">③</div>
+              <div class="pf-text">Gemini 결과 <strong>그대로 복붙</strong></div>
+            </div>
+          </div>
+
+          <div class="code-block" id="yt-prompt" style="margin-top:16px;"><button class="copy-btn" onclick="copyText('yt-prompt')">복사</button>너는 유튜브 숏츠 전문가야.
+아래 제목과 스크립트를 보고
+유튜브에 바로 붙여넣을 수 있는
+설명란과 해시태그를 완성해줘.
 
 [제목]
-(여기에 영상 제목 입력)
+여기에 영상 제목 입력
 
 [스크립트]
-(여기에 완성된 스크립트 입력)
+여기에 완성된 스크립트 입력
 
-[출력 규칙]
-1. 설명란 (100자 이내):
-   - 첫 줄: 영상 핵심 내용 1문장 (검색 키워드 포함)
-   - 두 번째 줄: 구독 유도 문구
-   - 세 번째 줄: 채널 소개 1줄
+---
 
-2. 해시태그 (15~20개):
-   - 반드시 #Shorts 포함 (유튜브 숏츠 필수)
-   - 반드시 #명리공방 포함
-   - 주제 관련 태그 + 인기 태그 조합
-   - 형식: 한 줄에 태그 전부 나열
+[출력 조건]
+설명란:
+- 첫 줄: 영상 핵심 내용 1문장 (사주/운세 키워드 포함)
+- 빈 줄
+- 구독 유도: "구독 + 좋아요 + 알림 설정으로 매일 운세 받아보세요 🔔"
+- 채널 소개: "명리공방 | 사주·명리·운세 전문 채널"
 
-3. 출력 형식:
-   === 설명란 ===
-   (내용)
+해시태그:
+- 총 15~20개
+- 반드시 포함: #Shorts #명리공방 #사주 #운세 #숏츠
+- 영상 주제에 맞는 태그 추가
+- 한 줄로 이어서 출력
 
-   === 해시태그 ===
-   (내용)</div>
+출력 형식:
+▶ 설명란
+(내용)
+
+▶ 해시태그
+(내용)</div>
         </div>
       </div>
 
